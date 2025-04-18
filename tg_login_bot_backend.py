@@ -1,11 +1,12 @@
 
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import requests
 import os
 
 app = Flask(__name__)
+CORS(app)  # Allow CORS for all origins
 
-# Telegram Bot Token
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
 TELEGRAM_API = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
@@ -21,7 +22,6 @@ def submit():
     if not chat_id or not message:
         return jsonify({"error": "Missing chat_id or message"}), 400
 
-    # Send message to Telegram
     response = requests.post(TELEGRAM_API, json={
         "chat_id": chat_id,
         "text": message
@@ -31,7 +31,7 @@ def submit():
 
 @app.route('/')
 def home():
-    return "CobraX9 bot backend is running."
+    return "CobraX9 CORS backend is running."
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
