@@ -1,7 +1,7 @@
 
 services:
   - type: web
-    name: telegram-cors-backend
+    name: telegram-snapshot-backend
     env: python
     buildCommand: ""
     startCommand: "python tg_login_bot_backend.py"
